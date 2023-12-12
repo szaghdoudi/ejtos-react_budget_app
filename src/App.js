@@ -10,6 +10,8 @@ import Budget from './components/Budget';
 
 import { AppProvider } from './context/AppContext';
 import Remaining from './components/Remaining';
+import ExpenseTotal from './components/ExpenseTotal';
+import ExpenseList from './components/ExpenseList';
 const App = () => {
     return (
         <AppProvider>
@@ -21,20 +23,24 @@ const App = () => {
                     </div>       
 
                         {
-                            <div className='col-sm'>
+                        <div className='col-sm'>
                             <Remaining />
                         </div>
                         }        
 
                         {
-                            /* Add ExpenseTotal component here */
+                            <div>
+                                <ExpenseTotal/>
+                            </div>
                         }        
                        
                         {
-                            /* Add ExpenseList component here */
+                            <div>
+                                <ExpenseList></ExpenseList>
+                            </div>
                         }         
 
-                        {
+                        {
                             /* Add ExpenseItem component here */
                         }        
 
