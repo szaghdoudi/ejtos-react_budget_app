@@ -4,7 +4,7 @@ import { AppContext } from "../context/AppContext"
 const AllocationForm = (props) => {
     const {dispatch, remaining} = useContext(AppContext);
     const [name, setName] = useState('');
-    const [cost, setCost] = useState('');
+    const [cost, setCost] = useState(0);
     const [action, setAction] = useState('');
 
     const  submitEvent = ()=>{
@@ -35,6 +35,36 @@ const AllocationForm = (props) => {
 
     }
 
+    const handleAllocationUpdate = (event)=>{
+
+        if(event.target.validity.valid){
+            if(validateAllocationValue(event.target.value)){
+                setCost(normaliseAllocationValue(event.target.value));
+            }
+        }else if((cost.length === 1 && event.nativeEvent.inputType === "deleteContentBackward")){
+            setCost('0');
+        }   
+    }
+
+    const validateAllocationValue = (value)=>{
+        let isValid = true;
+        if(value > remaining){
+            alert("The value cannot exceed remaing funds £" + remaining);
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    const normaliseAllocationValue = (value) => {
+        let normalisedValue = value;
+        if(value != 0){
+            normalisedValue = value.replace(/^0+/, "");
+        } else{
+            normalisedValue = '0';
+        }  
+        return normalisedValue
+    }
+
     return (
         <div>
             <div className='row'>
@@ -61,10 +91,11 @@ const AllocationForm = (props) => {
                     <input
                         required='required'
                         type='number'
+                        min='0'
                         id='cost'
                         value={cost}
                         style={{ marginLeft: '2rem' , size: 10}}
-                        onChange={(event) => setCost(event.target.value)}>
+                        onChange={handleAllocationUpdate}>
                         </input>
                     <button className="btn btn-primary" onClick={submitEvent} style={{ marginLeft: '2rem' }}>
                         Save
