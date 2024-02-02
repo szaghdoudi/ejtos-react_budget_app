@@ -36,7 +36,6 @@ const AllocationForm = (props) => {
     }
 
     const handleAllocationUpdate = (event)=>{
-
         if(event.target.validity.valid){
             if(validateAllocationValue(event.target.value)){
                 setCost(normaliseAllocationValue(event.target.value));
